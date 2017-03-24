@@ -1,0 +1,110 @@
+<html>
+
+<head>
+  <title>動態修改履歷表樣式</title>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            padding: 3px;
+            white-space: pre;
+        }
+        td{
+          word-break: break-all;
+          word-wrap:break-word;
+          table-layout: fixed;
+        }
+    </style>
+    <script>
+        function a() {
+            var ttable = document.getElementById("ttable");
+            ttable.innerHTML = "";
+            var name = document.form1.username.value;
+            var birth = document.form1.birth.value;
+            var sex = document.form1.sex.value;
+            var study = document.form1.study.value;
+            var lan1 = document.form1.chinese.value;
+            var lan2 = document.form1.english.value;
+            var lan3 = document.form1.japanese.value;
+            var lan4 = document.form1.korean.value;
+            var language = lan1 + "\n" + lan2 + "\n" + lan3 + "\n" + lan4;
+            var advantage = document.form1.advantage.value;
+            var hobby = "";
+            for (i = 0; i < document.form1['hobby'].length; i++) {
+                if (document.form1['hobby'][i].checked) {
+                    hobby += document.form1['hobby'][i].value + ",";
+                }
+            }
+            var myself = document.form1.note.value;
+            alert("名字：" + name + "\n生日：" + birth + "\n性別：" + sex + "\n學歷：" + study + "\n語言能力：\n中文：" +
+                lan1 + "\n英文：" + lan2 + "\n日文：" + lan3 + "\n韓文：" + lan4 +
+                "\n專長：" + advantage + "\n興趣：" + hobby + "\n自傳：" + myself + "\n");
+
+            var table =  document.createElement("table");
+            var ArrTitle = ["名字", "生日", "性別", "學歷", "中文：\n英文：\n日文：\n韓文：" , "專長", "興趣", "自傳"];
+            var Arr = [name, birth, sex, study, language, advantage, hobby, myself];
+            for (var i = 0; i < ArrTitle.length; i++) {
+                row = document.createElement("tr");
+                h = document.createElement("th");
+                hh = document.createTextNode(ArrTitle[i]);
+                h.appendChild(hh);
+                row.appendChild(h);
+                d = document.createElement("td");
+                dd = document.createTextNode(Arr[i]);
+                d.appendChild(dd);
+                row.appendChild(d);
+                table.appendChild(row);
+            }
+            ttable.appendChild(table);
+        }
+    </script>
+</head>
+
+<body>
+    <form name="form1" align = "center">
+      <p class="littlered" onmouseover="this.style.color='blue';" onmouseout="this.style.color='red';" onclick="this.className='bigred';" >請據實填寫</p>
+
+        名字：
+        <INPUT name="username" type=text size=10 maxlength=20>
+        <br><br> 生日：
+        <INPUT name="birth" type=date>
+        <br><br> 性別：
+        <INPUT name="sex" type=radio value="男">男
+        <INPUT name="sex" type=radio value="女">女
+        <br><br> 學歷：
+        <INPUT name="study" type=radio value="國小">國小
+        <INPUT name="study" type=radio value="國中">國中
+        <INPUT name="study" type=radio value="高中">高中
+        <INPUT name="study" type=radio value="大學">大學
+        <INPUT name="study" type=radio value="大學以上">大學以上
+        <br><br> 語言能力：(0-100)
+        <br><br> 中文
+        <input type="range" name="chinese" min="0" max="100">
+        <br> 英文
+        <input type="range" name="english" min="0" max="100">
+        <br> 日文
+        <input type="range" name="japanese" min="0" max="100">
+        <br> 韓文
+        <input type="range" name="korean" min="0" max="100">
+        <br><br> 專長：
+        <br><br>
+        <textarea name="advantage" type=textarea cols="50" rows="3"></textarea>
+        <br><br> 興趣（可複選）：
+        <INPUT name="hobby" type=checkbox value="閱讀">閱讀
+        <INPUT name="hobby" type=checkbox value="運動">運動
+        <INPUT name="hobby" type=checkbox value="音樂">音樂
+        <INPUT name="hobby" type=checkbox value="睡覺">睡覺
+        <INPUT name="hobby" type=checkbox value="聊天">聊天
+        <br><br> 自傳：
+        <br><br>
+        <textarea name="note" type=textarea cols="50" rows="10"></textarea>
+        <br><br>
+        <input type="button" name="bt" value="送出" onClick="a()">
+        <input type="reset" value="重新輸入">
+    </form>
+    <br><br>
+    <div id=ttable align="center"></div>
+</body>
+
+</html>
